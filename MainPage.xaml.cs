@@ -1,24 +1,16 @@
-﻿namespace Inventory
+﻿using Inventory.ViewModels;
+
+namespace Inventory
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        private readonly ItemsViewModel _viewModel;
 
-        public MainPage()
+        public MainPage(ItemsViewModel viewModel)
         {
             InitializeComponent();
-        }
-
-        private void OnCounterClicked(object? sender, EventArgs e)
-        {
-            //count++;
-
-            //if (count == 1)
-            //    CounterBtn.Text = $"Clicked {count} time";
-            //else
-            //    CounterBtn.Text = $"Clicked {count} times";
-
-            //SemanticScreenReader.Announce(CounterBtn.Text);
+            _viewModel = viewModel;
+            BindingContext = _viewModel;
         }
     }
 }

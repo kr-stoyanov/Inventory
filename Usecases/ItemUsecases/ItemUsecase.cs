@@ -12,8 +12,6 @@ public class ItemUsecase : IItemUsecase
         _itemRepositoryInMemory = itemRepositoryInMemory;
     }
 
-    public IEnumerable<Item> Execute()
-    {
-        return _itemRepositoryInMemory.GetAllItems();
-    }
+    public IEnumerable<Item> Execute() => _itemRepositoryInMemory.GetAllItems();
+
 }

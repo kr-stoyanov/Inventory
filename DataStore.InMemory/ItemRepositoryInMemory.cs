@@ -16,17 +16,28 @@ public class ItemRepositoryInMemory : IItemRepositoryInMemory
                 Model = $"Model {index}",
                 SerialNumber = $"SN-{Guid.NewGuid()}",
                 Notes = $"Notes for Item {index}",
+                WarrantyValidityMonths = (byte)new Random().Next(6, 36), // Random warranty validity between 1 and 36 months
                 LastKnownLocation = $"Location of Item {index}",
-                WarrantyExpirationDate = GetRandomWarrantyExpirationDate(),
                 DateOfPurchase = DateOnly.FromDateTime(DateTime.Now.AddDays(-index)),
-                ImageUrl = "images/icons8-item-50.png",
+                ImageUrl = "../Resources/Images/icons8_tools_48.png",
             })];
+        _items.Insert(0, new Item
+        {
+            Id = Guid.NewGuid().ToString(),
+            Name = "SSD",
+            Category = ItemCategory.Electronics,
+            Make = "Kingston",
+            Model = "A400 - SA400S37/960G",
+            SerialNumber = "V2119032",
+            Notes = @"2.5"" SSD 960GB Purchased from Ardes.",
+            WarrantyValidityMonths = 36, // 3 years warranty
+            LastKnownLocation = "Mounted on the Desktop PC.",
+            DateOfPurchase = DateOnly.FromDateTime(new DateTime(2025, 5, 24)),
+            ImageUrl = "../Resources/Images/icons8_tools_48.png"
+        });
     }
 
-    public void AddItem(Item item)
-    {
-        _items.Add(item);
-    }
+    public void AddItem(Item item) => _items.Add(item);
 
     public IEnumerable<Item> GetAllItems() => _items;
 

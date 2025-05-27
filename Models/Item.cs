@@ -12,9 +12,16 @@ public class Item
     public required string SerialNumber { get; init; }
     public required string Notes { get; init; }
     public required string LastKnownLocation { get; init; }
-    public required DateOnly WarrantyExpirationDate { get; init; }
+    public required byte WarrantyValidityMonths { get; init; }
     public required DateOnly DateOfPurchase { get; init; }
     public required string ImageUrl { get; init; }
+    public DateOnly WarrantyExpirationDate
+    {
+        get
+        {
+            return DateOfPurchase.AddMonths(WarrantyValidityMonths);
+        }
+    }
     public WarrantyStatus WarrantyStatus
     {
         get
