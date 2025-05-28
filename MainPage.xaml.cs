@@ -4,9 +4,9 @@ namespace Inventory
 {
     public partial class MainPage : ContentPage
     {
-        private readonly ItemsViewModel _viewModel;
+        private readonly MainPageViewModel _viewModel;
 
-        public MainPage(ItemsViewModel viewModel)
+        public MainPage(MainPageViewModel viewModel)
         {
             InitializeComponent();
             _viewModel = viewModel;

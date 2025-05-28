@@ -1,7 +1,7 @@
 ﻿using Inventory.Models;
 
 namespace Inventory.Usecases.Interfaces;
-public interface IItemUsecase
+public interface IItemsUsecase
 {
     IEnumerable<Item> Execute();
 }

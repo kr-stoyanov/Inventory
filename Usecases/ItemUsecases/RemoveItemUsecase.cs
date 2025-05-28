@@ -3,15 +3,14 @@ using Inventory.Models;
 using Inventory.Usecases.Interfaces;
 
 namespace Inventory.Usecases.ItemUsecases;
-public class ItemUsecase : IItemUsecase
+public class RemoveItemUsecase : IRemoveItemUsecase
 {
     private readonly IItemRepositoryInMemory _itemRepositoryInMemory;
 
-    public ItemUsecase(IItemRepositoryInMemory itemRepositoryInMemory)
+    public RemoveItemUsecase(IItemRepositoryInMemory itemRepositoryInMemory)
     {
         _itemRepositoryInMemory = itemRepositoryInMemory;
     }
-
-    public IEnumerable<Item> Execute() => _itemRepositoryInMemory.GetAllItems();
+    public void Execute(Item item) => _itemRepositoryInMemory.RemoveItem(item);
 
 }

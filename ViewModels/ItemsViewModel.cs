@@ -9,14 +9,16 @@ namespace Inventory.ViewModels;
 
 public partial class ItemsViewModel : BaseViewModel
 {
-    private readonly IItemUsecase _itemUsecase;
+    private readonly IItemsUsecase _itemUsecase;
+    private readonly IRemoveItemUsecase _removeItemUsecase;
 
     public ObservableCollection<Item> Items { get; } = [];
 
-    public ItemsViewModel(IItemUsecase itemUsecase)
+    public ItemsViewModel(IItemsUsecase itemUsecase, IRemoveItemUsecase removeItemUsecase)
     {
         Title = "Items";
         _itemUsecase = itemUsecase;
+        _removeItemUsecase = removeItemUsecase;
     }
 
     [RelayCommand]
@@ -28,6 +30,13 @@ public partial class ItemsViewModel : BaseViewModel
             {
                 { "Item", item }
             });
+    }
+
+    [RelayCommand]
+    void RemoveItemAsync(Item item)
+    {
+        if (item is null) return;
+        _removeItemUsecase.Execute(item);
     }
 
     [RelayCommand]

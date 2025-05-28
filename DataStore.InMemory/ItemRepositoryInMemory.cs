@@ -42,6 +42,7 @@ public class ItemRepositoryInMemory : IItemRepositoryInMemory
     public IEnumerable<Item> GetAllItems() => _items;
 
     public Item? GetItemById(string id) => _items?.FirstOrDefault(x => x.Id.ToString() == id);
+    public void RemoveItem(Item item) => _items.Remove(item);
 
     public static T GetRandomEnum<T>() where T : Enum
     {
@@ -58,4 +59,6 @@ public class ItemRepositoryInMemory : IItemRepositoryInMemory
         int randomDays = random.Next(-365, 365);
         return DateOnly.FromDateTime(DateTime.Today.AddDays(randomDays));
     }
+
+
 }

@@ -20,12 +20,19 @@ namespace Inventory
             }).UseMauiCommunityToolkit();
 
             builder.Services.AddSingleton<IItemRepositoryInMemory, ItemRepositoryInMemory>();
-            builder.Services.AddTransient<IItemUsecase, ItemUsecase>();
+            builder.Services.AddTransient<IItemsUsecase, ItemsUsecase>();
             builder.Services.AddTransient<IGetItemByIdUsecase, GetItemByIdUsecase>();
             builder.Services.AddTransient<IAddItemUsecase, AddItemUsecase>();
-            builder.Services.AddSingleton<ItemsViewModel>();
-            builder.Services.AddTransient<ItemDetailsViewModel>();
+            builder.Services.AddTransient<IRemoveItemUsecase, RemoveItemUsecase>();
+
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<MainPageViewModel>();
+
+            builder.Services.AddTransient<ItemsPage>();
+            builder.Services.AddTransient<ItemsViewModel>();
+
             builder.Services.AddTransient<ItemDetailsPage>();
+            builder.Services.AddTransient<ItemDetailsViewModel>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
