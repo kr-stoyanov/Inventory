@@ -39,10 +39,15 @@ public class ItemRepositoryInMemory : IItemRepositoryInMemory
 
     public void AddItem(Item item) => _items.Add(item);
 
-    public IEnumerable<Item> GetAllItems() => _items;
+    public IEnumerable<Item> GetAllItems() => _items.Where(x => !x.IsDeleted);
 
     public Item? GetItemById(string id) => _items?.FirstOrDefault(x => x.Id.ToString() == id);
-    public void RemoveItem(Item item) => _items.Remove(item);
+
+    public void RemoveItem(Item item) 
+    {
+        var itemToRemove = _items.FirstOrDefault(x => x.Id == item.Id);
+        if (itemToRemove is not null) itemToRemove.IsDeleted = true;
+    }
 
     public static T GetRandomEnum<T>() where T : Enum
     {
@@ -50,15 +55,4 @@ public class ItemRepositoryInMemory : IItemRepositoryInMemory
         Random random = new();
         return values[random.Next(values.Length)];
     }
-
-    private static DateOnly GetRandomWarrantyExpirationDate()
-    {
-        var random = new Random();
-        // Range: from 1 year ago to 1 year in the future
-        //int daysRange = 365 * 2;
-        int randomDays = random.Next(-365, 365);
-        return DateOnly.FromDateTime(DateTime.Today.AddDays(randomDays));
-    }
-
-
 }

@@ -1,6 +1,6 @@
 ﻿namespace Inventory.ViewModels
 {
-    public partial class DeleteItemViewModel : BaseViewModel
+    public partial class RemoveItemViewModel : BaseViewModel
     {
     }
 }

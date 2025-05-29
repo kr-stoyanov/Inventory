@@ -12,8 +12,6 @@ public class AddItemUsecase : IAddItemUsecase
         _itemRepositoryInMemory = itemRepositoryInMemory;
     }
 
-    public void Execute(Item item)
-    {
-        _itemRepositoryInMemory.AddItem(item);
-    }
+    public void Execute(Item item) => _itemRepositoryInMemory.AddItem(item);
+    
 }

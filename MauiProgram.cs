@@ -33,6 +33,10 @@ namespace Inventory
 
             builder.Services.AddTransient<ItemDetailsPage>();
             builder.Services.AddTransient<ItemDetailsViewModel>();
+
+            builder.Services.AddTransient<AddItemPage>();
+            builder.Services.AddTransient<AddItemViewModel>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

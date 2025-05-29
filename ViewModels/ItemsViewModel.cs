@@ -14,7 +14,7 @@ public partial class ItemsViewModel : BaseViewModel
 
     public ObservableCollection<Item> Items { get; } = [];
 
-    public ItemsViewModel(IItemsUsecase itemUsecase, IRemoveItemUsecase removeItemUsecase)
+    public ItemsViewModel(IItemsUsecase itemUsecase,IRemoveItemUsecase removeItemUsecase)
     {
         Title = "Items";
         _itemUsecase = itemUsecase;
@@ -31,6 +31,39 @@ public partial class ItemsViewModel : BaseViewModel
                 { "Item", item }
             });
     }
+
+    [RelayCommand]
+    async Task AddItemAsync(Item item)
+    {
+        if (item is null) return;
+        await Shell.Current.GoToAsync($"{nameof(AddItemPage)}", true,
+            new Dictionary<string, object>
+            {
+                { "Item", item }
+            });
+    }
+
+    [RelayCommand]
+    async Task GoBackAsync()
+    {
+        if (IsBusy) return;
+        try
+        {
+            IsBusy = true;
+            await Shell.Current.GoToAsync("..");
+        }
+        catch (Exception ex)
+        {
+            // TODO Add Logging
+            Debug.WriteLine($"Error navigating back: {ex.Message}");
+            await Shell.Current.DisplayAlert("Error", $"There was an error navigating back. {ex.Message}", "OK");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+
 
     [RelayCommand]
     void RemoveItemAsync(Item item)

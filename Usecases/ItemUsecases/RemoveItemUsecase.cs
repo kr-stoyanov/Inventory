@@ -12,5 +12,4 @@ public class RemoveItemUsecase : IRemoveItemUsecase
         _itemRepositoryInMemory = itemRepositoryInMemory;
     }
     public void Execute(Item item) => _itemRepositoryInMemory.RemoveItem(item);
-
 }

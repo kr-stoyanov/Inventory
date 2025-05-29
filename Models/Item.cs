@@ -11,16 +11,14 @@ public class Item
     public required string Model { get; init; }
     public required string SerialNumber { get; init; }
     public required string Notes { get; init; }
+    public bool IsDeleted { get; set; }
     public required string LastKnownLocation { get; init; }
     public required byte WarrantyValidityMonths { get; init; }
     public required DateOnly DateOfPurchase { get; init; }
     public required string ImageUrl { get; init; }
     public DateOnly WarrantyExpirationDate
     {
-        get
-        {
-            return DateOfPurchase.AddMonths(WarrantyValidityMonths);
-        }
+        get =>  DateOfPurchase.AddMonths(WarrantyValidityMonths);
     }
     public WarrantyStatus WarrantyStatus
     {
