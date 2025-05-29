@@ -16,10 +16,7 @@ public class Item
     public required byte WarrantyValidityMonths { get; init; }
     public required DateOnly DateOfPurchase { get; init; }
     public required string ImageUrl { get; init; }
-    public DateOnly WarrantyExpirationDate
-    {
-        get =>  DateOfPurchase.AddMonths(WarrantyValidityMonths);
-    }
+    public DateOnly WarrantyExpirationDate { get => DateOfPurchase.AddMonths(WarrantyValidityMonths); }
     public WarrantyStatus WarrantyStatus
     {
         get

@@ -1,7 +1,8 @@
-﻿using Inventory.Enums;
+﻿using Inventory.DataStote.Interfaces;
+using Inventory.Enums;
 using Inventory.Models;
 namespace Inventory.DataStore.InMemory;
-public class ItemRepositoryInMemory : IItemRepositoryInMemory
+public class ItemRepositoryInMemory : IItemRepository
 {
     private readonly List<Item> _items;
 
@@ -43,7 +44,7 @@ public class ItemRepositoryInMemory : IItemRepositoryInMemory
 
     public Item? GetItemById(string id) => _items?.FirstOrDefault(x => x.Id.ToString() == id);
 
-    public void RemoveItem(Item item) 
+    public void RemoveItem(Item item)
     {
         var itemToRemove = _items.FirstOrDefault(x => x.Id == item.Id);
         if (itemToRemove is not null) itemToRemove.IsDeleted = true;
@@ -54,5 +55,29 @@ public class ItemRepositoryInMemory : IItemRepositoryInMemory
         var values = Enum.GetValues(typeof(T)).Cast<T>().ToArray();
         Random random = new();
         return values[random.Next(values.Length)];
+    }
+
+    public void EditItem(Item item)
+    {
+        var itemToEdit = _items.FirstOrDefault(x => x.Id == item.Id);
+        if (itemToEdit is not null)
+        {
+            // Create a new instance of the Item with updated properties
+            var updatedItem = new Item
+            {
+                Id = itemToEdit.Id, // Preserve the original ID
+                Name = item.Name,
+                Category = item.Category,
+                Make = item.Make,
+                Model = item.Model,
+                SerialNumber = item.SerialNumber,
+                Notes = item.Notes,
+                LastKnownLocation = item.LastKnownLocation,
+                WarrantyValidityMonths = item.WarrantyValidityMonths,
+                DateOfPurchase = item.DateOfPurchase,
+                ImageUrl = item.ImageUrl
+            };
+            _items[_items.IndexOf(itemToEdit)] = updatedItem;
+        }
     }
 }

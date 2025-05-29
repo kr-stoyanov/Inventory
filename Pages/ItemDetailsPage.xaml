@@ -31,6 +31,7 @@
 
             </Grid>
             <VerticalStackLayout Padding="10" Spacing="10" HorizontalOptions="Start">
+                <Label Text="{Binding Item.Name, StringFormat='Name: {0}'}"/>
                 <Label Text="{Binding Item.Make, StringFormat='Make: {0}'}"/>
                 <Label Text="{Binding Item.Model, StringFormat='Model: {0}'}"/>
                 <Label Text="{Binding Item.Category, StringFormat='Category: {0}'}"/>
@@ -43,13 +44,13 @@
                 <Label Text="{Binding Item.WarrantyStatus, StringFormat='Warranty Status: {0}'}"/>
             </VerticalStackLayout>
             <HorizontalStackLayout Padding="10" Spacing="10" HorizontalOptions="Center">
-                <Button Text="Back"
-                        Command="{Binding GoBackCommand}"
+                <Button Text="Print Warranty"
+                        Command="{Binding PrintWarrantyCommand}"
                         IsEnabled="{Binding IsNotBusy}"
                         Grid.Row="1"
                         Margin="8"/>
-                <Button Text="Print Warranty"
-                        Command="{Binding PrintWarrantyCommand}"
+                <Button Text="Back"
+                        Command="{Binding GoBackCommand}"
                         IsEnabled="{Binding IsNotBusy}"
                         Grid.Row="1"
                         Margin="8"/>

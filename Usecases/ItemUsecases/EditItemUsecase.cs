@@ -3,14 +3,15 @@ using Inventory.Models;
 using Inventory.Usecases.Interfaces;
 
 namespace Inventory.Usecases.ItemUsecases;
-public class ItemsUsecase : IItemsUsecase
+
+public class EditItemUsecase : IEditItemUsecase
 {
     private readonly IItemRepository _itemRepositoryInMemory;
 
-    public ItemsUsecase(IItemRepository itemRepositoryInMemory)
+    public EditItemUsecase(IItemRepository itemRepositoryInMemory)
     {
         _itemRepositoryInMemory = itemRepositoryInMemory;
     }
 
-    public IEnumerable<Item> Execute() => _itemRepositoryInMemory.GetAllItems();
+    public void Execute(Item item) => _itemRepositoryInMemory.EditItem(item);
 }

@@ -1,13 +1,13 @@
-﻿using Inventory.DataStore.InMemory;
+﻿using Inventory.DataStote.Interfaces;
 using Inventory.Models;
 using Inventory.Usecases.Interfaces;
 
 namespace Inventory.Usecases.ItemUsecases;
 public class AddItemUsecase : IAddItemUsecase
 {
-    private readonly IItemRepositoryInMemory _itemRepositoryInMemory;
+    private readonly IItemRepository _itemRepositoryInMemory;
 
-    public AddItemUsecase(IItemRepositoryInMemory itemRepositoryInMemory)
+    public AddItemUsecase(IItemRepository itemRepositoryInMemory)
     {
         _itemRepositoryInMemory = itemRepositoryInMemory;
     }

@@ -1,23 +1,34 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Inventory.Enums;
 using Inventory.Models;
-using Inventory.Pages;
 using Inventory.Usecases.Interfaces;
 using System.Diagnostics;
 
 namespace Inventory.ViewModels;
 
-[QueryProperty("Item", "Item")]
 public partial class AddItemViewModel : BaseViewModel
 {
     private readonly IAddItemUsecase _addItemUsecase;
+
     public AddItemViewModel(IAddItemUsecase addItemUsecase)
     {
         _addItemUsecase = addItemUsecase;
+        Categories = [.. Enum.GetValues<ItemCategory>().Cast<ItemCategory>()];
+        DateOfPurchase = DateOnly.FromDateTime(DateTime.Today);
     }
 
-    [ObservableProperty]
-    Item _item;
+    public List<ItemCategory> Categories { get; set; }
+
+    [ObservableProperty] string _name = string.Empty;
+    [ObservableProperty] ItemCategory _category;
+    [ObservableProperty] string _make = string.Empty;
+    [ObservableProperty] string _model = string.Empty;
+    [ObservableProperty] string _serialNumber = string.Empty;
+    [ObservableProperty] string _notes = string.Empty;
+    [ObservableProperty] string _lastKnownLocation = string.Empty;
+    [ObservableProperty] byte _warrantyValidityMonths;
+    [ObservableProperty] DateOnly _dateOfPurchase;
 
     [RelayCommand]
     async Task GoBackAsync()
@@ -30,7 +41,6 @@ public partial class AddItemViewModel : BaseViewModel
         }
         catch (Exception ex)
         {
-            // TODO Add Logging
             Debug.WriteLine($"Error navigating back: {ex.Message}");
             await Shell.Current.DisplayAlert("Error", $"There was an error navigating back. {ex.Message}", "OK");
         }
@@ -41,11 +51,37 @@ public partial class AddItemViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    async Task AddItemAsync(Item item)
+    async Task AddItemAsync()
     {
-        if (item is null) return;
-        _addItemUsecase.Execute(item);
-
-        await Shell.Current.GoToAsync("..");
+        if (IsBusy) return;
+        try
+        {
+            IsBusy = true;
+            var item = new Item
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = Name,
+                Category = Category,
+                Make = Make,
+                Model = Model,
+                SerialNumber = SerialNumber,
+                Notes = Notes,
+                LastKnownLocation = LastKnownLocation,
+                WarrantyValidityMonths = WarrantyValidityMonths,
+                DateOfPurchase = DateOfPurchase,
+                ImageUrl = "../Resources/Images/icons8_tools_48.png"
+            };
+            _addItemUsecase.Execute(item);
+            await Shell.Current.GoToAsync("..");
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error adding item: {ex.Message}");
+            await Shell.Current.DisplayAlert("Error", $"There was an error adding the item. {ex.Message}", "OK");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 }

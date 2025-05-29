@@ -9,7 +9,7 @@ namespace Inventory.ViewModels
     public partial class ItemDetailsViewModel : BaseViewModel
     {
         [ObservableProperty]
-        Item _item;
+        Item? _item;
 
         [RelayCommand]
         async Task GoBackAsync()

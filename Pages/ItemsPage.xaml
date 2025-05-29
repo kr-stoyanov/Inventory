@@ -6,47 +6,55 @@
             Title="{Binding Title}"  
             x:Class="Inventory.Pages.ItemsPage">
 
-    <Grid ColumnDefinitions="*,*"  
-         ColumnSpacing="5"  
-         RowDefinitions="*,Auto"  
-         RowSpacing="0">
-        <HorizontalStackLayout Padding="10" Spacing="10" HorizontalOptions="Center">
+    <Grid RowDefinitions="Auto,*,Auto"
+          ColumnDefinitions="*,*"
+          ColumnSpacing="5"
+          RowSpacing="0">
+        <!-- Buttons Row -->
+        <HorizontalStackLayout Grid.Row="0" Grid.ColumnSpan="2" Padding="10" Spacing="10" HorizontalOptions="Center">
             <Button Text="Add New Item"
-               Command="{Binding AddItemCommand}"
-               IsEnabled="{Binding IsNotBusy}"
-               Grid.RowSpan="1"
-               Grid.ColumnSpan="2"
-               Margin="8"/>
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ItemsViewModel}}, Path=AddItemCommand}"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Margin="8"/>
             <Button Text="Back"
-               Command="{Binding GoBackCommand}"
-               IsEnabled="{Binding IsNotBusy}"
-               Grid.Row="1"
-               Margin="8"/>
+                    Command="{Binding GoBackCommand}"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Margin="8"/>
         </HorizontalStackLayout>
 
-        <CollectionView BackgroundColor="Transparent"  
-                       Grid.ColumnSpan="2"  
-                       ItemsSource="{Binding Items}"  
-                       SelectionMode="None">
+        <!-- Items List Row -->
+        <CollectionView Grid.Row="1" Grid.ColumnSpan="2"
+                        BackgroundColor="Transparent"
+                        ItemsSource="{Binding Items}"
+                        SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Item">
                     <SwipeView>
                         <SwipeView.RightItems>
                             <SwipeItems>
                                 <SwipeItem  
-                                   CommandParameter="{Binding .}"  
                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ItemsViewModel}}, Path=RemoveItemCommand}"  
+                                   CommandParameter="{Binding .}"  
                                    BackgroundColor="Red"
                                    Text="Remove"/>
                             </SwipeItems>
                         </SwipeView.RightItems>
+                        <SwipeView.LeftItems>
+                            <SwipeItems>
+                                <SwipeItem  
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ItemsViewModel}}, Path=EditItemCommand}"  
+                                CommandParameter="{Binding .}"  
+                                BackgroundColor="Goldenrod"
+                                Text="Edit"/>
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
                         <Grid Padding="10">
                             <Border StrokeShape="RoundRectangle 10"  
                                    HeightRequest="125"  
                                    Padding="0">
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding .}"  
-                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ItemsViewModel}}, Path=GoToDetailsCommand}" />
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ItemsViewModel}}, Path=GoToDetailsCommand}" />
                                 </Border.GestureRecognizers>
                                 <Grid Padding="0"  
                                      ColumnDefinitions="125, *">
@@ -71,11 +79,12 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <ActivityIndicator IsVisible="{Binding IsBusy}"  
+
+        <!-- Activity Indicator -->
+        <ActivityIndicator Grid.RowSpan="2" Grid.ColumnSpan="2"
+                          IsVisible="{Binding IsBusy}"  
                           IsRunning="{Binding IsBusy}"  
                           HorizontalOptions="Center"  
-                          VerticalOptions="Center"  
-                          Grid.RowSpan="2"  
-                          Grid.ColumnSpan="2" />
+                          VerticalOptions="Center" />
     </Grid>
 </ContentPage>

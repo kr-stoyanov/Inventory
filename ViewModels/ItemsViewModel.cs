@@ -14,7 +14,7 @@ public partial class ItemsViewModel : BaseViewModel
 
     public ObservableCollection<Item> Items { get; } = [];
 
-    public ItemsViewModel(IItemsUsecase itemUsecase,IRemoveItemUsecase removeItemUsecase)
+    public ItemsViewModel(IItemsUsecase itemUsecase, IRemoveItemUsecase removeItemUsecase)
     {
         Title = "Items";
         _itemUsecase = itemUsecase;
@@ -33,15 +33,18 @@ public partial class ItemsViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    async Task AddItemAsync(Item item)
+    async Task EditItemAsync(Item item)
     {
         if (item is null) return;
-        await Shell.Current.GoToAsync($"{nameof(AddItemPage)}", true,
+        await Shell.Current.GoToAsync($"{nameof(EditItemPage)}", true,
             new Dictionary<string, object>
             {
                 { "Item", item }
             });
     }
+
+    [RelayCommand]
+    async Task AddItemAsync() => await Shell.Current.GoToAsync($"{nameof(AddItemPage)}", true);
 
     [RelayCommand]
     async Task GoBackAsync()
@@ -66,10 +69,11 @@ public partial class ItemsViewModel : BaseViewModel
 
 
     [RelayCommand]
-    void RemoveItemAsync(Item item)
+    async Task RemoveItemAsync(Item item)
     {
         if (item is null) return;
         _removeItemUsecase.Execute(item);
+        await Shell.Current.GoToAsync("..");
     }
 
     [RelayCommand]

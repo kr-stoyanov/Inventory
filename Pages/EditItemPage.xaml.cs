@@ -2,11 +2,11 @@ using Inventory.ViewModels;
 
 namespace Inventory.Pages;
 
-public partial class AddItemPage : ContentPage
+public partial class EditItemPage : ContentPage
 {
-    private readonly AddItemViewModel _viewModel;
+    private readonly EditItemViewModel _viewModel;
 
-    public AddItemPage(AddItemViewModel viewModel)
+    public EditItemPage(EditItemViewModel viewModel)
     {
         InitializeComponent();
         _viewModel = viewModel;
@@ -15,6 +15,6 @@ public partial class AddItemPage : ContentPage
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
-        base.OnNavigatedTo(args);
+        if (_viewModel.Item is not null) _viewModel.LoadItem(_viewModel.Item);
     }
 }
