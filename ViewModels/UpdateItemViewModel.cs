@@ -8,11 +8,11 @@ using System.Diagnostics;
 namespace Inventory.ViewModels;
 
 [QueryProperty("Item", "Item")]
-public partial class EditItemViewModel : BaseViewModel
+public partial class UpdateItemViewModel : BaseViewModel
 {
-    private readonly IEditItemUsecase _editItemUsecase;
+    private readonly IUpdateItemUsecase _editItemUsecase;
 
-    public EditItemViewModel(IEditItemUsecase editItemUsecase)
+    public UpdateItemViewModel(IUpdateItemUsecase editItemUsecase)
     {
         Categories = [.. Enum.GetValues<ItemCategory>().Cast<ItemCategory>()];
         _editItemUsecase = editItemUsecase;
@@ -48,7 +48,21 @@ public partial class EditItemViewModel : BaseViewModel
         try
         {
             IsBusy = true;
-            _editItemUsecase.Execute(_item);
+            var updatedItem = new Item
+            {
+                Id = Id,
+                Name = Name,
+                Category = Category,
+                Make = Make,
+                Model = Model,
+                SerialNumber = SerialNumber,
+                Notes = Notes,
+                LastKnownLocation = LastKnownLocation,
+                WarrantyValidityMonths = WarrantyValidityMonths,
+                DateOfPurchase = DateOfPurchase,
+                ImageUrl = ImageUrl
+            };
+            _editItemUsecase.Execute(updatedItem);
             await Shell.Current.GoToAsync("..");
         }
         catch (Exception ex)

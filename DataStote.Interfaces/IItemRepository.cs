@@ -7,7 +7,6 @@ public interface IItemRepository
     Item? GetItemById(string id);
     void AddItem(Item item);
     void RemoveItem(Item item);
-
-    void EditItem(Item item);
+    void UpdateItem(Item item);
 }
 

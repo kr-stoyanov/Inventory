@@ -1,8 +1,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:Inventory.ViewModels"
-             x:Class="Inventory.Pages.EditItemPage"
-             x:DataType="viewmodel:EditItemViewModel"
+             x:Class="Inventory.Pages.UpdateItemPage"
+             x:DataType="viewmodel:UpdateItemViewModel"
              Shell.PresentationMode="ModalAnimated"
              Title="{Binding Title}">
     <ScrollView>
@@ -95,6 +95,7 @@
 
             <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
                 <Button Text="Save"
+                        CommandParameter="{Binding .}"
                         Command="{Binding SaveItemCommand}"
                         IsEnabled="{Binding IsNotBusy}" />
                 <Button Text="Back"

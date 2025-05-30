@@ -25,7 +25,7 @@ namespace Inventory
             builder.Services.AddTransient<IItemsUsecase, ItemsUsecase>();
             builder.Services.AddTransient<IGetItemByIdUsecase, GetItemByIdUsecase>();
             builder.Services.AddTransient<IAddItemUsecase, AddItemUsecase>();
-            builder.Services.AddTransient<IEditItemUsecase, EditItemUsecase>();
+            builder.Services.AddTransient<IUpdateItemUsecase, UpdateItemUsecase>();
             builder.Services.AddTransient<IRemoveItemUsecase, RemoveItemUsecase>();
 
             builder.Services.AddSingleton<MainPage>();
@@ -40,8 +40,8 @@ namespace Inventory
             builder.Services.AddTransient<AddItemPage>();
             builder.Services.AddTransient<AddItemViewModel>();
 
-            builder.Services.AddTransient<EditItemPage>();
-            builder.Services.AddTransient<EditItemViewModel>();
+            builder.Services.AddTransient<UpdateItemPage>();
+            builder.Services.AddTransient<UpdateItemViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

@@ -72,10 +72,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\UpdateItemPage.xaml.cs">
+	    <DependentUpon>UpdateItemPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Pages\AddItemPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\EditItemPage.xaml">
+	  <MauiXaml Update="Pages\UpdateItemPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\ItemDetailsPage.xaml">

@@ -2,11 +2,11 @@ using Inventory.ViewModels;
 
 namespace Inventory.Pages;
 
-public partial class EditItemPage : ContentPage
+public partial class UpdateItemPage : ContentPage
 {
-    private readonly EditItemViewModel _viewModel;
+    private readonly UpdateItemViewModel _viewModel;
 
-    public EditItemPage(EditItemViewModel viewModel)
+    public UpdateItemPage(UpdateItemViewModel viewModel)
     {
         InitializeComponent();
         _viewModel = viewModel;

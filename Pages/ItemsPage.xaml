@@ -35,8 +35,7 @@
                                 <SwipeItemView  
                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ItemsViewModel}}, Path=RemoveItemCommand}"  
                                    CommandParameter="{Binding .}" >
-                                    <Border StrokeShape="RoundRectangle 10"
-                                            Padding="0"
+                                    <Border Padding="0"
                                             BackgroundColor="Red"
                                             HeightRequest="125">
                                         <StackLayout Margin="10" 
@@ -53,31 +52,28 @@
                         <SwipeView.LeftItems>
                             <SwipeItems>
                                 <SwipeItemView  
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ItemsViewModel}}, Path=EditItemCommand}"  
-                                CommandParameter="{Binding .}">
-                                    <Border StrokeShape="RoundRectangle 10"
-                                            BackgroundColor="DarkGrey"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ItemsViewModel}}, Path=UpdateItemCommand}"  
+                                CommandParameter="{Binding .}"
+                                VerticalOptions="Center">
+                                    <Border BackgroundColor="DarkGrey"
                                             HeightRequest="125">
                                         <StackLayout Margin="10" 
                                                      WidthRequest="55">
-                                            <Label Text="Edit"
-                                                   FontAttributes="Bold"
-                                                   HorizontalOptions="Center"
-                                                   VerticalOptions="Fill"/>
+                                            <Label Text="Update"
+                                                   FontAttributes="Bold"/>
                                         </StackLayout>
                                     </Border>
                                 </SwipeItemView>
                             </SwipeItems>
                         </SwipeView.LeftItems>
                         <Grid Padding="10">
-                            <Border StrokeShape="RoundRectangle 10"  
-                                   HeightRequest="125"  
-                                   Padding="0">
+                            <Border HeightRequest="125">
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding .}"  
                                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ItemsViewModel}}, Path=GoToDetailsCommand}" />
                                 </Border.GestureRecognizers>
-                                <Grid Padding="0"  
+                            </Border>
+                            <Grid Padding="0"  
                                      ColumnDefinitions="125, *">
                                     <Image Grid.Column="0"  
                                           Aspect="AspectFill"  
@@ -94,7 +90,7 @@
                                               Style="{StaticResource SubHeadline}" />
                                     </VerticalStackLayout>
                                 </Grid>
-                            </Border>
+                            
                         </Grid>
                     </SwipeView>
                 </DataTemplate>

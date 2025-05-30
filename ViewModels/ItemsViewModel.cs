@@ -33,10 +33,10 @@ public partial class ItemsViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    async Task EditItemAsync(Item item)
+    async Task UpdateItemAsync(Item item)
     {
         if (item is null) return;
-        await Shell.Current.GoToAsync($"{nameof(EditItemPage)}", true,
+        await Shell.Current.GoToAsync($"{nameof(UpdateItemPage)}", true,
             new Dictionary<string, object>
             {
                 { "Item", item }

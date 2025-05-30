@@ -57,7 +57,7 @@ public class ItemRepositoryInMemory : IItemRepository
         return values[random.Next(values.Length)];
     }
 
-    public void EditItem(Item item)
+    public void UpdateItem(Item item)
     {
         var itemToEdit = _items.FirstOrDefault(x => x.Id == item.Id);
         if (itemToEdit is not null)

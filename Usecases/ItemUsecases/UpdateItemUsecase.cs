@@ -4,14 +4,14 @@ using Inventory.Usecases.Interfaces;
 
 namespace Inventory.Usecases.ItemUsecases;
 
-public class EditItemUsecase : IEditItemUsecase
+public class UpdateItemUsecase : IUpdateItemUsecase
 {
     private readonly IItemRepository _itemRepositoryInMemory;
 
-    public EditItemUsecase(IItemRepository itemRepositoryInMemory)
+    public UpdateItemUsecase(IItemRepository itemRepositoryInMemory)
     {
         _itemRepositoryInMemory = itemRepositoryInMemory;
     }
 
-    public void Execute(Item item) => _itemRepositoryInMemory.EditItem(item);
+    public void Execute(Item item) => _itemRepositoryInMemory.UpdateItem(item);
 }
