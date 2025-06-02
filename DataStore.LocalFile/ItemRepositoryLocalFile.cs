@@ -66,7 +66,6 @@ public class ItemRepositoryLocalFile : IItemRepository
                 LastKnownLocation = item.LastKnownLocation,
                 WarrantyValidityMonths = item.WarrantyValidityMonths,
                 DateOfPurchase = item.DateOfPurchase,
-                ImageUrl = item.ImageUrl
             };
 
             // Replace the old item with the updated one

@@ -73,7 +73,7 @@ public partial class ItemsViewModel : BaseViewModel
     {
         if (item is null) return;
         _removeItemUsecase.Execute(item);
-        await Shell.Current.GoToAsync("..");
+        await LoadItemsAsync();
     }
 
     [RelayCommand]

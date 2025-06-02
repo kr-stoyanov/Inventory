@@ -22,6 +22,7 @@ namespace Inventory
 
             //builder.Services.AddSingleton<IItemRepository, ItemRepositoryInMemory>();
             builder.Services.AddSingleton<IItemRepository, ItemRepositoryLocalFile>();
+
             builder.Services.AddTransient<IItemsUsecase, ItemsUsecase>();
             builder.Services.AddTransient<IGetItemByIdUsecase, GetItemByIdUsecase>();
             builder.Services.AddTransient<IAddItemUsecase, AddItemUsecase>();

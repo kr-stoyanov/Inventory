@@ -20,7 +20,6 @@ public class ItemRepositoryInMemory : IItemRepository
                 WarrantyValidityMonths = (byte)new Random().Next(6, 36), // Random warranty validity between 1 and 36 months
                 LastKnownLocation = $"Location of Item {index}",
                 DateOfPurchase = DateOnly.FromDateTime(DateTime.Now.AddDays(-index)),
-                ImageUrl = "../Resources/Images/icons8_tools_48.png",
             })];
         _items.Insert(0, new Item
         {
@@ -34,7 +33,6 @@ public class ItemRepositoryInMemory : IItemRepository
             WarrantyValidityMonths = 36, // 3 years warranty
             LastKnownLocation = "Mounted on the Desktop PC.",
             DateOfPurchase = DateOnly.FromDateTime(new DateTime(2025, 5, 24)),
-            ImageUrl = "../Resources/Images/icons8_tools_48.png"
         });
     }
 
@@ -75,7 +73,6 @@ public class ItemRepositoryInMemory : IItemRepository
                 LastKnownLocation = item.LastKnownLocation,
                 WarrantyValidityMonths = item.WarrantyValidityMonths,
                 DateOfPurchase = item.DateOfPurchase,
-                ImageUrl = item.ImageUrl
             };
             _items[_items.IndexOf(itemToEdit)] = updatedItem;
         }

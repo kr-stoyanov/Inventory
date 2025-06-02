@@ -39,11 +39,13 @@
                                             BackgroundColor="Red"
                                             HeightRequest="125">
                                         <StackLayout Margin="10" 
-                                                     WidthRequest="55">
+                                                     WidthRequest="55"
+                                                     VerticalOptions="Center"
+                                                     HorizontalOptions="Center">
                                             <Label Text="Remove"
                                                    FontAttributes="Bold"
-                                                   HorizontalOptions="Center" 
-                                                   VerticalOptions="Center"/>
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Center"/>
                                         </StackLayout>
                                     </Border>
                                 </SwipeItemView>
@@ -58,9 +60,13 @@
                                     <Border BackgroundColor="DarkGrey"
                                             HeightRequest="125">
                                         <StackLayout Margin="10" 
-                                                     WidthRequest="55">
+                                                     WidthRequest="55"
+                                                     VerticalOptions="Center"
+                                                     HorizontalOptions="Center">
                                             <Label Text="Update"
-                                                   FontAttributes="Bold"/>
+                                                   FontAttributes="Bold"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Center"/>
                                         </StackLayout>
                                     </Border>
                                 </SwipeItemView>
@@ -75,22 +81,22 @@
                             </Border>
                             <Grid Padding="0"  
                                      ColumnDefinitions="125, *">
-                                    <Image Grid.Column="0"  
+                                <Image Grid.Column="0"  
                                           Aspect="AspectFill"  
                                           Source="{Binding ImageUrl}"  
                                           WidthRequest="50"  
                                           HeightRequest="50" />
-                                    <VerticalStackLayout Grid.Column="1"  
+                                <VerticalStackLayout Grid.Column="1"  
                                                         Padding="10"  
                                                         VerticalOptions="Center"  
                                                         HorizontalOptions="Center">
-                                        <Label Text="{Binding Name}"  
+                                    <Label Text="{Binding Name}"  
                                               Style="{StaticResource Headline}" />
-                                        <Label Text="{Binding Make}"  
+                                    <Label Text="{Binding Make}"  
                                               Style="{StaticResource SubHeadline}" />
-                                    </VerticalStackLayout>
-                                </Grid>
-                            
+                                </VerticalStackLayout>
+                            </Grid>
+
                         </Grid>
                     </SwipeView>
                 </DataTemplate>

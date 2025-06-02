@@ -1,9 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Inventory.Enums;
 using Inventory.Models;
 using Inventory.Usecases.Interfaces;
 using System.Diagnostics;
+using System.IO;
 
 namespace Inventory.ViewModels;
 
@@ -17,6 +20,15 @@ public partial class AddItemViewModel : BaseViewModel
         Categories = [.. Enum.GetValues<ItemCategory>().Cast<ItemCategory>()];
         DateOfPurchase = DateOnly.FromDateTime(DateTime.Today);
     }
+
+    private ImageSource _selectedPhoto;
+    public ImageSource SelectedPhoto
+    {
+        get => _selectedPhoto;
+        set => SetProperty(ref _selectedPhoto, value);
+    }
+
+
 
     public List<ItemCategory> Categories { get; set; }
 
@@ -51,6 +63,44 @@ public partial class AddItemViewModel : BaseViewModel
     }
 
     [RelayCommand]
+    async Task TakePhotoAsync()
+    {
+        var status = await Permissions.CheckStatusAsync<Permissions.Camera>();
+
+        if (status != PermissionStatus.Granted)
+        {
+            status = await Permissions.RequestAsync<Permissions.Camera>();
+
+            if (status != PermissionStatus.Granted)
+            {
+                // Handle the case where the user denied the permission
+                // Show an alert or prompt the user to change the permission in settings
+            }
+        }
+
+        if (status == PermissionStatus.Granted)
+        {
+            if (MediaPicker.Default.IsCaptureSupported)
+            {
+                FileResult? photo = await MediaPicker.Default.CapturePhotoAsync();
+
+                if (photo != null)
+                {
+                    string localFilePath = Path.Combine(FileSystem.CacheDirectory, $"{Guid.NewGuid()}{photo.FileName}");
+
+                    using Stream sourceStream = await photo.OpenReadAsync();
+                    using FileStream localFileStream = File.OpenWrite(localFilePath);
+                    await sourceStream.CopyToAsync(localFileStream);
+                    SelectedPhoto = ImageSource.FromStream(() => localFileStream);
+                }
+            }
+
+            var toast = Toast.Make("Photo successfully uploaded!", ToastDuration.Short);
+            await toast.Show();
+        }
+    }
+
+    [RelayCommand]
     async Task AddItemAsync()
     {
         if (IsBusy) return;
@@ -69,7 +119,6 @@ public partial class AddItemViewModel : BaseViewModel
                 LastKnownLocation = LastKnownLocation,
                 WarrantyValidityMonths = WarrantyValidityMonths,
                 DateOfPurchase = DateOfPurchase,
-                ImageUrl = "../Resources/Images/icons8_tools_48.png"
             };
             _addItemUsecase.Execute(item);
             await Shell.Current.GoToAsync("..");

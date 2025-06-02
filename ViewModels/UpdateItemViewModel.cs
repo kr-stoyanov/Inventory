@@ -60,7 +60,6 @@ public partial class UpdateItemViewModel : BaseViewModel
                 LastKnownLocation = LastKnownLocation,
                 WarrantyValidityMonths = WarrantyValidityMonths,
                 DateOfPurchase = DateOfPurchase,
-                ImageUrl = ImageUrl
             };
             _editItemUsecase.Execute(updatedItem);
             await Shell.Current.GoToAsync("..");
