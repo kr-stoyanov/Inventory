@@ -80,11 +80,15 @@
                             TextColor="#222"
                             HeightRequest="44"
                             Visual="Default"/>
-            <Label Text="Warranty Image" />
-            <Image Source="{Binding SelectedPhoto}" 
-                   WidthRequest="200"
-                   HeightRequest="200"
-                   Aspect="AspectFit" />
+            <Label Text="Warranty Photo" />
+            <Image Source="{Binding SelectedPhoto}"
+                   HeightRequest="120"
+                   WidthRequest="120"
+                   Aspect="AspectFill"
+                   BackgroundColor="#EEE"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,16"/>
+
 
             <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
                 <Button Text="Add"
@@ -93,6 +97,9 @@
                 <Button Text="Take Photo"
                         Command="{Binding TakePhotoCommand}"
                         IsEnabled="{Binding IsNotBusy}" />
+                <Button Text="Remove Photo"
+                        Command="{Binding RemovePhotoCommand}"
+                        IsEnabled="{Binding SelectedPhoto, Converter={StaticResource NullToBoolConverter}}" />
                 <Button Text="Back"
                         Command="{Binding GoBackCommand}"
                         IsEnabled="{Binding IsNotBusy}" />

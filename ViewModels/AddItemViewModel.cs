@@ -6,7 +6,6 @@ using Inventory.Enums;
 using Inventory.Models;
 using Inventory.Usecases.Interfaces;
 using System.Diagnostics;
-using System.IO;
 
 namespace Inventory.ViewModels;
 
@@ -17,18 +16,20 @@ public partial class AddItemViewModel : BaseViewModel
     public AddItemViewModel(IAddItemUsecase addItemUsecase)
     {
         _addItemUsecase = addItemUsecase;
+        Title = "Add New Item";
         Categories = [.. Enum.GetValues<ItemCategory>().Cast<ItemCategory>()];
-        DateOfPurchase = DateOnly.FromDateTime(DateTime.Today);
+        DateOfPurchase = DateTime.Today;
+        Category = ItemCategory.Tools; // Default category
     }
 
-    private ImageSource _selectedPhoto;
-    public ImageSource SelectedPhoto
+    private ImageSource? _selectedPhoto;
+    public ImageSource? SelectedPhoto
     {
         get => _selectedPhoto;
         set => SetProperty(ref _selectedPhoto, value);
     }
 
-
+    private readonly string _localFilePath = Path.Combine(FileSystem.CacheDirectory, Guid.NewGuid().ToString());
 
     public List<ItemCategory> Categories { get; set; }
 
@@ -40,7 +41,7 @@ public partial class AddItemViewModel : BaseViewModel
     [ObservableProperty] string _notes = string.Empty;
     [ObservableProperty] string _lastKnownLocation = string.Empty;
     [ObservableProperty] byte _warrantyValidityMonths;
-    [ObservableProperty] DateOnly _dateOfPurchase;
+    [ObservableProperty] DateTime _dateOfPurchase;
 
     [RelayCommand]
     async Task GoBackAsync()
@@ -86,18 +87,24 @@ public partial class AddItemViewModel : BaseViewModel
 
                 if (photo != null)
                 {
-                    string localFilePath = Path.Combine(FileSystem.CacheDirectory, $"{Guid.NewGuid()}{photo.FileName}");
+
 
                     using Stream sourceStream = await photo.OpenReadAsync();
-                    using FileStream localFileStream = File.OpenWrite(localFilePath);
+                    using FileStream localFileStream = File.OpenWrite(_localFilePath);
                     await sourceStream.CopyToAsync(localFileStream);
-                    SelectedPhoto = ImageSource.FromStream(() => localFileStream);
+                    SelectedPhoto = ImageSource.FromStream(() => File.OpenRead(_localFilePath));
                 }
             }
 
             var toast = Toast.Make("Photo successfully uploaded!", ToastDuration.Short);
             await toast.Show();
         }
+    }
+
+    [RelayCommand]
+    void RemovePhoto()
+    {
+        SelectedPhoto = null;
     }
 
     [RelayCommand]
@@ -119,6 +126,7 @@ public partial class AddItemViewModel : BaseViewModel
                 LastKnownLocation = LastKnownLocation,
                 WarrantyValidityMonths = WarrantyValidityMonths,
                 DateOfPurchase = DateOfPurchase,
+                ReceiptImageUrl = _localFilePath,
             };
             _addItemUsecase.Execute(item);
             await Shell.Current.GoToAsync("..");

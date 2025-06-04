@@ -3,6 +3,7 @@ using Inventory.Extensions;
 
 namespace Inventory.Models;
 
+[Serializable]
 public class Item
 {
     public required string Id { get; init; }
@@ -14,15 +15,16 @@ public class Item
     public required string Notes { get; init; }
     public required string LastKnownLocation { get; init; }
     public required byte WarrantyValidityMonths { get; init; }
-    public required DateOnly DateOfPurchase { get; init; }
+    public required DateTime DateOfPurchase { get; set; }
+    public required string ReceiptImageUrl { get; set; }
     public bool IsDeleted { get; set; }
-    public string ImageUrl { get => Category.GetCategoryImageUrl(); }
-    public DateOnly WarrantyExpirationDate { get => DateOfPurchase.AddMonths(WarrantyValidityMonths); }
+    public string CategoryImageUrl { get => Category.GetCategoryImageUrl(); }
+    public DateTime WarrantyExpirationDate { get => DateOfPurchase.AddMonths(WarrantyValidityMonths); }
     public WarrantyStatus WarrantyStatus
     {
         get
         {
-            var today = DateOnly.FromDateTime(DateTime.Today);
+            var today = DateTime.Today;
             return WarrantyExpirationDate switch
             {
                 var day when day <= today => WarrantyStatus.Expired,

@@ -83,7 +83,7 @@
                                      ColumnDefinitions="125, *">
                                 <Image Grid.Column="0"  
                                           Aspect="AspectFill"  
-                                          Source="{Binding ImageUrl}"  
+                                          Source="{Binding CategoryImageUrl}"  
                                           WidthRequest="50"  
                                           HeightRequest="50" />
                                 <VerticalStackLayout Grid.Column="1"  

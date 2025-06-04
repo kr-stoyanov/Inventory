@@ -8,8 +8,17 @@ namespace Inventory.ViewModels
     [QueryProperty("Item", "Item")]
     public partial class ItemDetailsViewModel : BaseViewModel
     {
+        public ItemDetailsViewModel()
+        {
+            Title = "Item Details";
+        }
+
         [ObservableProperty]
         Item? _item;
+
+        public string DateOfPurchaseDisplay =>
+         Item is not null ? Item.DateOfPurchase.ToString("yyyy-MM-dd") : string.Empty;
+
 
         [RelayCommand]
         async Task GoBackAsync()

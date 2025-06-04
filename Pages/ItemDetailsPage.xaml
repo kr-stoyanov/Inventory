@@ -26,7 +26,7 @@
                        WidthRequest="120"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"
-                       Source="{Binding Item.ImageUrl}"/>
+                       Source="{Binding Item.CategoryImageUrl}"/>
                 </Border>
 
             </Grid>
@@ -38,10 +38,14 @@
                 <Label Text="{Binding Item.SerialNumber, StringFormat='SerialNumber: {0}'}"/>
                 <Label Text="{Binding Item.Notes, StringFormat='Notes: {0}'}"/>
                 <Label Text="{Binding Item.LastKnownLocation, StringFormat='Last Known Location: {0}'}"/>
-                <Label Text="{Binding Item.DateOfPurchase, StringFormat='Date Of Purchase: {0}'}"/>
+                <Label Text="{Binding Item.DateOfPurchase, StringFormat='Date Of Purchase: {0:d}'}"/>
                 <Label Text="{Binding Item.WarrantyValidityMonths, StringFormat='Warranty: {0} months'}"/>
-                <Label Text="{Binding Item.WarrantyExpirationDate, StringFormat='Warranty Expiration Date: {0}'}"/>
+                <Label Text="{Binding Item.WarrantyExpirationDate, StringFormat='Warranty Expiration Date: {0:d}'}"/>
                 <Label Text="{Binding Item.WarrantyStatus, StringFormat='Warranty Status: {0}'}"/>
+                <Label Text="Receipt:"/>
+                <Image Aspect="Center"  HeightRequest="120" WidthRequest="120" HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Source="{Binding Item.ReceiptImageUrl}"/>
             </VerticalStackLayout>
             <HorizontalStackLayout Padding="10" Spacing="10" HorizontalOptions="Center">
                 <Button Text="Print Warranty"

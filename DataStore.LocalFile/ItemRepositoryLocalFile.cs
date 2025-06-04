@@ -16,7 +16,7 @@ public class ItemRepositoryLocalFile : IItemRepository
 
     public IEnumerable<Item> GetAllItems() => _items.Where(x => !x.IsDeleted);
 
-    public Item? GetItemById(string id) => _items.FirstOrDefault(x => x.Id == id);
+    public Item GetItemById(string id) => _items.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException($"Item with ID {id} not found.");
 
     public void AddItem(Item item)
     {
@@ -36,6 +36,7 @@ public class ItemRepositoryLocalFile : IItemRepository
 
     private List<Item> LoadItems()
     {
+        //if (File.Exists(_appDataFile)) File.Delete(_appDataFile);
         if (!File.Exists(_appDataFile)) return [];
         var json = File.ReadAllText(_appDataFile);
         return JsonSerializer.Deserialize<List<Item>>(json) ?? [];
@@ -66,6 +67,7 @@ public class ItemRepositoryLocalFile : IItemRepository
                 LastKnownLocation = item.LastKnownLocation,
                 WarrantyValidityMonths = item.WarrantyValidityMonths,
                 DateOfPurchase = item.DateOfPurchase,
+                ReceiptImageUrl = item.ReceiptImageUrl
             };
 
             // Replace the old item with the updated one

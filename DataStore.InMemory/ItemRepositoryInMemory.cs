@@ -19,21 +19,9 @@ public class ItemRepositoryInMemory : IItemRepository
                 Notes = $"Notes for Item {index}",
                 WarrantyValidityMonths = (byte)new Random().Next(6, 36), // Random warranty validity between 1 and 36 months
                 LastKnownLocation = $"Location of Item {index}",
-                DateOfPurchase = DateOnly.FromDateTime(DateTime.Now.AddDays(-index)),
+                DateOfPurchase = DateTime.Now.AddDays(-index),
+                ReceiptImageUrl = $"https://example.com/receipt-item{index}.jpg",
             })];
-        _items.Insert(0, new Item
-        {
-            Id = Guid.NewGuid().ToString(),
-            Name = "SSD",
-            Category = ItemCategory.Electronics,
-            Make = "Kingston",
-            Model = "A400 - SA400S37/960G",
-            SerialNumber = "V2119032",
-            Notes = @"2.5"" SSD 960GB Purchased from Ardes.",
-            WarrantyValidityMonths = 36, // 3 years warranty
-            LastKnownLocation = "Mounted on the Desktop PC.",
-            DateOfPurchase = DateOnly.FromDateTime(new DateTime(2025, 5, 24)),
-        });
     }
 
     public void AddItem(Item item) => _items.Add(item);
@@ -73,6 +61,7 @@ public class ItemRepositoryInMemory : IItemRepository
                 LastKnownLocation = item.LastKnownLocation,
                 WarrantyValidityMonths = item.WarrantyValidityMonths,
                 DateOfPurchase = item.DateOfPurchase,
+                ReceiptImageUrl = item.ReceiptImageUrl,
             };
             _items[_items.IndexOf(itemToEdit)] = updatedItem;
         }

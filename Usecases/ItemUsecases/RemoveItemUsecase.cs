@@ -5,11 +5,11 @@ using Inventory.Usecases.Interfaces;
 namespace Inventory.Usecases.ItemUsecases;
 public class RemoveItemUsecase : IRemoveItemUsecase
 {
-    private readonly IItemRepository _itemRepositoryInMemory;
+    private readonly IItemRepository _itemRepository;
 
-    public RemoveItemUsecase(IItemRepository itemRepositoryInMemory)
+    public RemoveItemUsecase(IItemRepository itemRepository)
     {
-        _itemRepositoryInMemory = itemRepositoryInMemory;
+        _itemRepository = itemRepository;
     }
-    public void Execute(Item item) => _itemRepositoryInMemory.RemoveItem(item);
+    public void Execute(Item item) => _itemRepository.RemoveItem(item);
 }

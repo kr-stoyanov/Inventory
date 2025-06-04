@@ -5,12 +5,12 @@ using Inventory.Usecases.Interfaces;
 namespace Inventory.Usecases.ItemUsecases;
 public class ItemsUsecase : IItemsUsecase
 {
-    private readonly IItemRepository _itemRepositoryInMemory;
+    private readonly IItemRepository _itemRepository;
 
-    public ItemsUsecase(IItemRepository itemRepositoryInMemory)
+    public ItemsUsecase(IItemRepository itemRepository)
     {
-        _itemRepositoryInMemory = itemRepositoryInMemory;
+        _itemRepository = itemRepository;
     }
 
-    public IEnumerable<Item> Execute() => _itemRepositoryInMemory.GetAllItems();
+    public IEnumerable<Item> Execute() => _itemRepository.GetAllItems();
 }

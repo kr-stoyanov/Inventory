@@ -6,12 +6,12 @@ namespace Inventory.Usecases.ItemUsecases;
 
 public class UpdateItemUsecase : IUpdateItemUsecase
 {
-    private readonly IItemRepository _itemRepositoryInMemory;
+    private readonly IItemRepository _itemRepository;
 
-    public UpdateItemUsecase(IItemRepository itemRepositoryInMemory)
+    public UpdateItemUsecase(IItemRepository itemRepository)
     {
-        _itemRepositoryInMemory = itemRepositoryInMemory;
+        _itemRepository = itemRepository;
     }
 
-    public void Execute(Item item) => _itemRepositoryInMemory.UpdateItem(item);
+    public void Execute(Item item) => _itemRepository.UpdateItem(item);
 }

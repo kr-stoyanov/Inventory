@@ -5,13 +5,13 @@ using Inventory.Usecases.Interfaces;
 namespace Inventory.Usecases.ItemUsecases;
 public class AddItemUsecase : IAddItemUsecase
 {
-    private readonly IItemRepository _itemRepositoryInMemory;
+    private readonly IItemRepository _itemRepository;
 
-    public AddItemUsecase(IItemRepository itemRepositoryInMemory)
+    public AddItemUsecase(IItemRepository itemRepository)
     {
-        _itemRepositoryInMemory = itemRepositoryInMemory;
+        _itemRepository = itemRepository;
     }
 
-    public void Execute(Item item) => _itemRepositoryInMemory.AddItem(item);
-    
+    public void Execute(Item item) => _itemRepository.AddItem(item);
+
 }

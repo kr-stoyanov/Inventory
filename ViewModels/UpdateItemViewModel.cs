@@ -14,6 +14,7 @@ public partial class UpdateItemViewModel : BaseViewModel
 
     public UpdateItemViewModel(IUpdateItemUsecase editItemUsecase)
     {
+        Title = "Update Item";
         Categories = [.. Enum.GetValues<ItemCategory>().Cast<ItemCategory>()];
         _editItemUsecase = editItemUsecase;
     }
@@ -38,8 +39,9 @@ public partial class UpdateItemViewModel : BaseViewModel
     [ObservableProperty] string notes = string.Empty;
     [ObservableProperty] string lastKnownLocation = string.Empty;
     [ObservableProperty] byte warrantyValidityMonths;
-    [ObservableProperty] DateOnly dateOfPurchase;
+    [ObservableProperty] DateTime dateOfPurchase;
     [ObservableProperty] string imageUrl = string.Empty;
+    [ObservableProperty] string receiptImageUrl = string.Empty;
 
     [RelayCommand]
     async Task SaveItemAsync()
@@ -60,6 +62,7 @@ public partial class UpdateItemViewModel : BaseViewModel
                 LastKnownLocation = LastKnownLocation,
                 WarrantyValidityMonths = WarrantyValidityMonths,
                 DateOfPurchase = DateOfPurchase,
+                ReceiptImageUrl = ReceiptImageUrl,
             };
             _editItemUsecase.Execute(updatedItem);
             await Shell.Current.GoToAsync("..");
@@ -108,7 +111,7 @@ public partial class UpdateItemViewModel : BaseViewModel
         LastKnownLocation = item.LastKnownLocation;
         WarrantyValidityMonths = item.WarrantyValidityMonths;
         DateOfPurchase = item.DateOfPurchase;
-        ImageUrl = item.ImageUrl;
+        ImageUrl = item.CategoryImageUrl;
     }
 
 }
