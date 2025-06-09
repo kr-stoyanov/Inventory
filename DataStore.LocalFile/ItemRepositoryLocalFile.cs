@@ -7,7 +7,7 @@ namespace Inventory.DataStore.LocalFile;
 public class ItemRepositoryLocalFile : IItemRepository
 {
     private readonly string _appDataFile = $"{FileSystem.AppDataDirectory}\\appData.json";
-    private List<Item> _items;
+    private readonly List<Item> _items;
 
     public ItemRepositoryLocalFile()
     {
@@ -36,7 +36,6 @@ public class ItemRepositoryLocalFile : IItemRepository
 
     private List<Item> LoadItems()
     {
-        //if (File.Exists(_appDataFile)) File.Delete(_appDataFile);
         if (!File.Exists(_appDataFile)) return [];
         var json = File.ReadAllText(_appDataFile);
         return JsonSerializer.Deserialize<List<Item>>(json) ?? [];
@@ -74,5 +73,12 @@ public class ItemRepositoryLocalFile : IItemRepository
             _items[_items.IndexOf(itemToEdit)] = updatedItem;
             SaveItems();
         }
+    }
+
+    public void DropDatabase()
+    {
+        if (File.Exists(_appDataFile)) File.Delete(_appDataFile);
+
+        _items.Clear();
     }
 }

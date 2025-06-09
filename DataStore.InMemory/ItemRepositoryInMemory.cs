@@ -66,4 +66,6 @@ public class ItemRepositoryInMemory : IItemRepository
             _items[_items.IndexOf(itemToEdit)] = updatedItem;
         }
     }
+
+    public void DropDatabase() => _items.Clear();
 }

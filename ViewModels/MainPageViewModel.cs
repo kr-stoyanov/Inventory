@@ -1,10 +1,19 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.Input;
+using Inventory.DataStote.Interfaces;
 using Inventory.Pages;
 using System.Diagnostics;
 
 namespace Inventory.ViewModels;
 public partial class MainPageViewModel : BaseViewModel
 {
+    private readonly IItemRepository _itemRepository;
+
+    public MainPageViewModel(IItemRepository itemRepository)
+    {
+        _itemRepository = itemRepository;
+    }
     [RelayCommand]
     async Task GoToItemsAsync()
     {
@@ -24,5 +33,15 @@ public partial class MainPageViewModel : BaseViewModel
         {
             IsBusy = false;
         }
+    }
+
+    [RelayCommand]
+    async Task DropDatabaseAsync()
+    {
+        if (IsBusy) return;
+        _itemRepository.DropDatabase();
+
+        var toast = Toast.Make("Successfully Dropped Database and Cleared the Cache!", ToastDuration.Short);
+        await toast.Show();
     }
 }

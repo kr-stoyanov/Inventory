@@ -8,5 +8,6 @@ public interface IItemRepository
     void AddItem(Item item);
     void RemoveItem(Item item);
     void UpdateItem(Item item);
+    void DropDatabase();
 }
 

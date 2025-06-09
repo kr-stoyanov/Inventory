@@ -26,6 +26,13 @@
                 Grid.Row="1"
                 HorizontalOptions="Fill"
                 Margin="10"/>
+
+            <Button Text="Drop Databse"
+                Command="{Binding DropDatabaseCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Grid.Row="1"
+                HorizontalOptions="Fill"
+                Margin="10"/>
         </VerticalStackLayout>
     </ScrollView>
 

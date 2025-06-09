@@ -85,9 +85,8 @@
                    HeightRequest="120"
                    WidthRequest="120"
                    Aspect="AspectFill"
-                   BackgroundColor="#EEE"
-                   HorizontalOptions="Center"
-                   Margin="0,0,0,16"/>
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
 
 
             <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
